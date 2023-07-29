@@ -3,8 +3,7 @@
 import useSWR from "swr";
 import { agent } from "~/_lib/bsky";
 import { match, P } from "ts-pattern";
-import { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
-import { Post } from "~/app/post";
+import { Post } from "./post";
 
 export function Timeline() {
   const { data } = useSWR("getTimeline", () => {
@@ -17,12 +16,7 @@ export function Timeline() {
       return (
         <ul className="flex flex-col divide-y">
           {feed.map((item) => {
-            if (
-              AppBskyFeedPost.isRecord(item.post.record) &&
-              item.post.record.text
-            ) {
-              return <Post key={item.post.cid} {...item.post.record} />;
-            }
+            return <Post key={item.post.cid} item={item} />;
           })}
         </ul>
       );

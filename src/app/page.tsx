@@ -34,9 +34,9 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       {match(session)
-        .with(P.not(P.nullish), () => (
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="text-4xl font-bold">Logged in</h1>
+        .with(P.not(P.nullish), (session) => (
+          <div className="flex flex-col justify-center max-w-xl">
+            <h3 className="text-xl font-mono">@{session.handle}</h3>
             <Timeline />
           </div>
         ))
