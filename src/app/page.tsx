@@ -7,6 +7,7 @@ import { getSession } from "~/_lib/bsky";
 import { useRouter } from "next/navigation";
 import { AtpSessionData } from "@atproto/api";
 import { Timeline } from "~/app/timeline";
+import { Container, Flex } from "@radix-ui/themes";
 
 export default function Home() {
   const [session, setSession] = useState<AtpSessionData | null | undefined>(
@@ -32,13 +33,13 @@ export default function Home() {
   }, [router]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <Container size="1">
       {match(session)
         .with(P.not(P.nullish), (session) => (
-          <div className="flex flex-col justify-center max-w-xl">
+          <Flex direction="column">
             <h3 className="text-xl font-mono">@{session.handle}</h3>
             <Timeline />
-          </div>
+          </Flex>
         ))
         .with(null, () => (
           <div className="flex flex-col items-center justify-center">
@@ -53,6 +54,6 @@ export default function Home() {
           </div>
         ))
         .exhaustive()}
-    </main>
+    </Container>
   );
 }
